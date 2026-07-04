@@ -1,0 +1,349 @@
+/* ==========================================================
+   Enterprise Plotly Charts
+========================================================== */
+
+/* ==========================================================
+   Chart Container
+========================================================== */
+
+.enterprise-chart{
+
+    width:100%;
+
+    min-height:380px;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    transition:all .3s ease;
+
+}
+
+.enterprise-chart:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================================
+   Plotly Container
+========================================================== */
+
+.js-plotly-plot{
+
+    border-radius:18px;
+
+}
+
+.plot-container{
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+}
+
+.svg-container{
+
+    border-radius:18px;
+
+}
+
+/* ==========================================================
+   Modebar
+========================================================== */
+
+.modebar{
+
+    background:rgba(255,255,255,.06)!important;
+
+    border-radius:12px!important;
+
+    backdrop-filter:blur(8px);
+
+    padding:4px!important;
+
+}
+
+.modebar-btn{
+
+    transition:.25s;
+
+}
+
+.modebar-btn:hover{
+
+    transform:scale(1.15);
+
+}
+
+/* ==========================================================
+   Chart Card
+========================================================== */
+
+.chart-card{
+
+    position:relative;
+
+}
+
+.chart-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:0;
+
+    width:100%;
+
+    height:2px;
+
+    background:linear-gradient(
+
+        90deg,
+
+        var(--primary),
+
+        var(--success),
+
+        var(--warning)
+
+    );
+
+    transform:scaleX(0);
+
+    transform-origin:left;
+
+    transition:.3s;
+
+}
+
+.chart-card:hover::after{
+
+    transform:scaleX(1);
+
+}
+
+/* ==========================================================
+   Chart Header
+========================================================== */
+
+.chart-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+}
+
+.chart-title{
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:var(--text);
+
+}
+
+.chart-toolbar{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+.chart-toolbar button{
+
+    border:none;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.chart-toolbar button:hover{
+
+    color:var(--primary);
+
+    transform:scale(1.1);
+
+}
+
+/* ==========================================================
+   Loading State
+========================================================== */
+
+.chart-loading{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-height:380px;
+
+}
+
+/* ==========================================================
+   Plotly Animation
+========================================================== */
+
+.js-plotly-plot .plotly{
+
+    animation:fadeChart .45s ease;
+
+}
+
+@keyframes fadeChart{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(12px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================================
+   Chart Legend
+========================================================== */
+
+.legendtoggle{
+
+    cursor:pointer!important;
+
+    transition:.2s;
+
+}
+
+.legendtoggle:hover{
+
+    opacity:.7;
+
+}
+
+/* ==========================================================
+   Hover Cursor
+========================================================== */
+
+.nsewdrag{
+
+    cursor:crosshair!important;
+
+}
+
+/* ==========================================================
+   Dashboard Grid
+========================================================== */
+
+.chart-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(12,1fr);
+
+    gap:20px;
+
+}
+
+/* ==========================================================
+   Full Width Chart
+========================================================== */
+
+.chart-full{
+
+    grid-column:span 12;
+
+}
+
+/* ==========================================================
+   Half Width
+========================================================== */
+
+.chart-half{
+
+    grid-column:span 6;
+
+}
+
+/* ==========================================================
+   Third Width
+========================================================== */
+
+.chart-third{
+
+    grid-column:span 4;
+
+}
+
+/* ==========================================================
+   Quarter Width
+========================================================== */
+
+.chart-quarter{
+
+    grid-column:span 3;
+
+}
+
+/* ==========================================================
+   Responsive
+========================================================== */
+
+@media(max-width:1200px){
+
+    .chart-half{
+
+        grid-column:span 12;
+
+    }
+
+    .chart-third{
+
+        grid-column:span 12;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .enterprise-chart{
+
+        min-height:320px;
+
+    }
+
+    .chart-title{
+
+        font-size:16px;
+
+    }
+
+}

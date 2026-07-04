@@ -1,0 +1,431 @@
+/* ==========================================================
+   Enterprise Animations
+========================================================== */
+
+/* ==========================================================
+   Fade In
+========================================================== */
+
+.fade-in{
+
+    animation:fadeIn .45s ease forwards;
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+    }
+
+    to{
+
+        opacity:1;
+
+    }
+
+}
+
+/* ==========================================================
+   Slide Up
+========================================================== */
+
+.slide-up{
+
+    animation:slideUp .45s ease forwards;
+
+}
+
+@keyframes slideUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================================
+   Slide Left
+========================================================== */
+
+.slide-left{
+
+    animation:slideLeft .45s ease forwards;
+
+}
+
+@keyframes slideLeft{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(-20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+
+    }
+
+}
+
+/* ==========================================================
+   Slide Right
+========================================================== */
+
+.slide-right{
+
+    animation:slideRight .45s ease forwards;
+
+}
+
+@keyframes slideRight{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+
+    }
+
+}
+
+/* ==========================================================
+   Zoom In
+========================================================== */
+
+.zoom-in{
+
+    animation:zoomIn .35s ease;
+
+}
+
+@keyframes zoomIn{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.9);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}
+
+/* ==========================================================
+   Float
+========================================================== */
+
+.float{
+
+    animation:floating 4s ease-in-out infinite;
+
+}
+
+@keyframes floating{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-6px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================================
+   Pulse
+========================================================== */
+
+.pulse{
+
+    animation:pulse 2s infinite;
+
+}
+
+@keyframes pulse{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        transform:scale(1.03);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
+
+/* ==========================================================
+   Glow
+========================================================== */
+
+.glow{
+
+    animation:glow 2s infinite alternate;
+
+}
+
+@keyframes glow{
+
+    from{
+
+        box-shadow:0 0 8px rgba(37,99,235,.15);
+
+    }
+
+    to{
+
+        box-shadow:0 0 22px rgba(37,99,235,.45);
+
+    }
+
+}
+
+/* ==========================================================
+   Spinner
+========================================================== */
+
+.spin{
+
+    animation:spin .9s linear infinite;
+
+}
+
+@keyframes spin{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/* ==========================================================
+   Notification
+========================================================== */
+
+.toast-enter{
+
+    animation:toastIn .35s ease;
+
+}
+
+@keyframes toastIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(100%);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+
+    }
+
+}
+
+/* ==========================================================
+   Progress Bar
+========================================================== */
+
+.progress-grow{
+
+    animation:progressGrow 1s ease forwards;
+
+}
+
+@keyframes progressGrow{
+
+    from{
+
+        width:0;
+
+    }
+
+}
+
+/* ==========================================================
+   Shimmer
+========================================================== */
+
+.shimmer{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.shimmer::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    transform:translateX(-100%);
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            rgba(255,255,255,.18),
+
+            transparent
+
+        );
+
+    animation:shimmer 1.5s infinite;
+
+}
+
+@keyframes shimmer{
+
+    100%{
+
+        transform:translateX(100%);
+
+    }
+
+}
+
+/* ==========================================================
+   Hover Lift
+========================================================== */
+
+.hover-lift{
+
+    transition:.25s;
+
+}
+
+.hover-lift:hover{
+
+    transform:translateY(-4px);
+
+}
+
+/* ==========================================================
+   Chart Animation Delay
+========================================================== */
+
+.chart-delay-1{
+
+    animation-delay:.1s;
+
+}
+
+.chart-delay-2{
+
+    animation-delay:.2s;
+
+}
+
+.chart-delay-3{
+
+    animation-delay:.3s;
+
+}
+
+.chart-delay-4{
+
+    animation-delay:.4s;
+
+}
+
+.chart-delay-5{
+
+    animation-delay:.5s;
+
+}
+
+/* ==========================================================
+   Respect Reduced Motion
+========================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+    *{
+
+        animation:none!important;
+
+        transition:none!important;
+
+    }
+
+}

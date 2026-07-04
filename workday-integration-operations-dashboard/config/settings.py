@@ -20,7 +20,11 @@ DATA_DIR = BASE_DIR / "data"
 CACHE_DIR = BASE_DIR / "cache"
 LOG_DIR = BASE_DIR / "logs"
 
+DEBUG = True
 
+HOST = "0.0.0.0"
+
+PORT = 8050
 # -------------------------------------------------------
 # EXCEL FILES
 # -------------------------------------------------------

@@ -1,499 +1,439 @@
 """
-Enterprise Filter Sidebar
+Enterprise Sidebar
 """
 
-from dash import html, dcc
+from dash import html
+from dash import dcc
 import dash_bootstrap_components as dbc
 
 
-def create_sidebar():
+def build_sidebar():
 
-    return dbc.Card(
+    return html.Div(
 
-        [
+        id="sidebar",
 
-            dbc.CardHeader(
+        className="sidebar expanded",
+
+        children=[
+
+            # =====================================================
+            # Header
+            # =====================================================
+
+            dbc.Row(
 
                 [
 
-                    html.I(className="bi bi-funnel-fill me-2"),
+                    dbc.Col(
 
-                    html.Span("Filters")
+                        html.H4(
+
+                            "Filters",
+
+                            className="sidebar-title"
+
+                        )
+
+                    ),
+
+                    dbc.Col(
+
+                        dbc.Button(
+
+                            html.I(
+
+                                className="fa-solid fa-bars"
+
+                            ),
+
+                            id="sidebar-toggle",
+
+                            color="primary",
+
+                            size="sm",
+
+                            className="sidebar-toggle"
+
+                        ),
+
+                        width="auto"
+
+                    )
 
                 ],
 
-                className="sidebar-header"
+                justify="between",
+
+                align="center"
 
             ),
 
-            dbc.CardBody(
+            html.Hr(className="sidebar-divider"),
+
+            # =====================================================
+            # Search
+            # =====================================================
+
+            html.Div(
 
                 [
 
-                    # =====================================================
-                    # Search
-                    # =====================================================
+                    html.Label(
 
-                    html.Div(
+                        "Search Integration",
 
-                        [
-
-                            html.Label(
-                                "Search Integration",
-                                className="filter-label"
-                            ),
-
-                            dbc.Input(
-
-                                id="search-integration",
-
-                                type="text",
-
-                                placeholder="Search Integration...",
-
-                                debounce=True,
-
-                            )
-
-                        ],
-
-                        className="filter-group"
+                        className="filter-label"
 
                     ),
 
-                    html.Hr(),
+                    dbc.Input(
 
-                    # =====================================================
-                    # Date Mode
-                    # =====================================================
+                        id="search-integration",
 
-                    html.Div(
+                        type="text",
 
-                        [
-
-                            html.Label(
-
-                                "View",
-
-                                className="filter-label"
-
-                            ),
-
-                            dbc.RadioItems(
-
-                                id="period-filter",
-
-                                options=[
-
-                                    {
-
-                                        "label": "Daily",
-
-                                        "value": "Daily"
-
-                                    },
-
-                                    {
-
-                                        "label": "Weekly",
-
-                                        "value": "Weekly"
-
-                                    },
-
-                                    {
-
-                                        "label": "Monthly",
-
-                                        "value": "Monthly"
-
-                                    }
-
-                                ],
-
-                                value="Daily",
-
-                                inline=True
-
-                            )
-
-                        ],
-
-                        className="filter-group"
-
-                    ),
-
-                    html.Hr(),
-
-                    # =====================================================
-                    # Status
-                    # =====================================================
-
-                    html.Div(
-
-                        [
-
-                            html.Label(
-
-                                "Execution Status",
-
-                                className="filter-label"
-
-                            ),
-
-                            dcc.Dropdown(
-
-                                id="status-filter",
-
-                                options=[
-
-                                    {
-
-                                        "label": "All",
-
-                                        "value": "All"
-
-                                    },
-
-                                    {
-
-                                        "label": "Success",
-
-                                        "value": "Success"
-
-                                    },
-
-                                    {
-
-                                        "label": "Failed",
-
-                                        "value": "Failed"
-
-                                    },
-
-                                    {
-
-                                        "label": "Warning",
-
-                                        "value": "Warning"
-
-                                    },
-
-                                    {
-
-                                        "label": "Running",
-
-                                        "value": "Running"
-
-                                    }
-
-                                ],
-
-                                value="All",
-
-                                clearable=False
-
-                            )
-
-                        ],
-
-                        className="filter-group"
-
-                    ),
-
-                    html.Hr(),
-
-                    # =====================================================
-                    # Report Type
-                    # =====================================================
-
-                    html.Div(
-
-                        [
-
-                            html.Label(
-
-                                "Report Type",
-
-                                className="filter-label"
-
-                            ),
-
-                            dcc.Dropdown(
-
-                                id="report-filter",
-
-                                options=[
-
-                                    {
-
-                                        "label": "All",
-
-                                        "value": "All"
-
-                                    },
-
-                                    {
-
-                                        "label": "Failures",
-
-                                        "value": "Failures"
-
-                                    },
-
-                                    {
-
-                                        "label": "Event Statistics",
-
-                                        "value": "Event Statistics"
-
-                                    },
-
-                                    {
-
-                                        "label": "Processing Time",
-
-                                        "value": "Processing Time"
-
-                                    }
-
-                                ],
-
-                                value="All",
-
-                                clearable=False
-
-                            )
-
-                        ],
-
-                        className="filter-group"
-
-                    ),
-
-                    html.Hr(),
-
-                    # =====================================================
-                    # Processing Time
-                    # =====================================================
-
-                    html.Div(
-
-                        [
-
-                            html.Label(
-
-                                "Processing Time (Seconds)",
-
-                                className="filter-label"
-
-                            ),
-
-                            dcc.RangeSlider(
-
-                                id="processing-slider",
-
-                                min=0,
-
-                                max=300,
-
-                                step=1,
-
-                                value=[0, 300],
-
-                                tooltip={
-
-                                    "placement": "bottom",
-
-                                    "always_visible": False
-
-                                }
-
-                            )
-
-                        ],
-
-                        className="filter-group"
-
-                    ),
-
-                    html.Hr(),
-
-                    # =====================================================
-                    # Items Processed
-                    # =====================================================
-
-                    html.Div(
-
-                        [
-
-                            html.Label(
-
-                                "Items Processed",
-
-                                className="filter-label"
-
-                            ),
-
-                            dcc.RangeSlider(
-
-                                id="items-slider",
-
-                                min=0,
-
-                                max=100000,
-
-                                step=100,
-
-                                value=[0, 100000],
-
-                                tooltip={
-
-                                    "placement": "bottom"
-
-                                }
-
-                            )
-
-                        ],
-
-                        className="filter-group"
-
-                    ),
-
-                    html.Hr(),
-
-                    # =====================================================
-                    # Failure Keyword
-                    # =====================================================
-
-                    html.Div(
-
-                        [
-
-                            html.Label(
-
-                                "Failure Keyword",
-
-                                className="filter-label"
-
-                            ),
-
-                            dbc.Input(
-
-                                id="failure-filter",
-
-                                placeholder="Timeout / Auth / Network ...",
-
-                                debounce=True
-
-                            )
-
-                        ],
-
-                        className="filter-group"
-
-                    ),
-
-                    html.Hr(),
-
-                    # =====================================================
-                    # Slow Executions
-                    # =====================================================
-
-                    dbc.Checklist(
-
-                        id="slow-only",
-
-                        options=[
-
-                            {
-
-                                "label": "Show Slow Executions Only",
-
-                                "value": 1
-
-                            }
-
-                        ],
-
-                        value=[],
-
-                        switch=True
-
-                    ),
-
-                    html.Br(),
-
-                    dbc.Checklist(
-
-                        id="critical-only",
-
-                        options=[
-
-                            {
-
-                                "label": "Critical Failures Only",
-
-                                "value": 1
-
-                            }
-
-                        ],
-
-                        value=[],
-
-                        switch=True
-
-                    ),
-
-                    html.Br(),
-
-                    # =====================================================
-                    # Buttons
-                    # =====================================================
-
-                    dbc.Button(
-
-                        [
-
-                            html.I(
-
-                                className="bi bi-arrow-clockwise me-2"
-
-                            ),
-
-                            "Reset Filters"
-
-                        ],
-
-                        id="reset-filters",
-
-                        color="secondary",
-
-                        className="w-100 mb-2"
+                        placeholder="Search..."
 
                     ),
 
                     dbc.Button(
 
-                        [
+                        "Clear",
 
-                            html.I(
+                        id="clear-search",
 
-                                className="bi bi-download me-2"
+                        color="link",
 
-                            ),
+                        size="sm",
 
-                            "Export Current View"
+                        className="mt-2"
 
-                        ],
+                    )
 
-                        id="export-view",
+                ],
 
-                        color="primary",
+                className="filter-group"
 
-                        className="w-100"
+            ),
+
+            # =====================================================
+            # Period
+            # =====================================================
+
+            html.Div(
+
+                [
+
+                    html.Label(
+
+                        "Period",
+
+                        className="filter-label"
+
+                    ),
+
+                    dbc.Select(
+
+                        id="period-filter",
+
+                        value="weekly",
+
+                        options=[
+
+                            {
+
+                                "label":"Daily",
+
+                                "value":"daily"
+
+                            },
+
+                            {
+
+                                "label":"Weekly",
+
+                                "value":"weekly"
+
+                            },
+
+                            {
+
+                                "label":"Monthly",
+
+                                "value":"monthly"
+
+                            }
+
+                        ]
+
+                    )
+
+                ],
+
+                className="filter-group"
+
+            ),
+
+            # =====================================================
+            # Integration
+            # =====================================================
+
+            html.Div(
+
+                [
+
+                    html.Label(
+
+                        "Integration",
+
+                        className="filter-label"
+
+                    ),
+
+                    dcc.Dropdown(
+
+                        id="integration-filter",
+
+                        multi=True,
+
+                        placeholder="All Integrations"
+
+                    )
+
+                ],
+
+                className="filter-group"
+
+            ),
+
+            # =====================================================
+            # Status
+            # =====================================================
+
+            html.Div(
+
+                [
+
+                    html.Label(
+
+                        "Status",
+
+                        className="filter-label"
+
+                    ),
+
+                    dcc.Dropdown(
+
+                        id="status-filter",
+
+                        multi=True,
+
+                        placeholder="All Status"
+
+                    )
+
+                ],
+
+                className="filter-group"
+
+            ),
+
+            # =====================================================
+            # Runtime
+            # =====================================================
+
+            html.Div(
+
+                [
+
+                    html.Label(
+
+                        "Processing Time (sec)",
+
+                        className="filter-label"
+
+                    ),
+
+                    dcc.RangeSlider(
+
+                        id="processing-slider",
+
+                        min=0,
+
+                        max=300,
+
+                        value=[0,300],
+
+                        tooltip={
+
+                            "placement":"bottom"
+
+                        }
+
+                    )
+
+                ],
+
+                className="filter-group"
+
+            ),
+
+            # =====================================================
+            # Items
+            # =====================================================
+
+            html.Div(
+
+                [
+
+                    html.Label(
+
+                        "Items Processed",
+
+                        className="filter-label"
+
+                    ),
+
+                    dcc.RangeSlider(
+
+                        id="items-slider",
+
+                        min=0,
+
+                        max=100000,
+
+                        value=[0,100000]
+
+                    )
+
+                ],
+
+                className="filter-group"
+
+            ),
+
+            # =====================================================
+            # Failure Reason
+            # =====================================================
+
+            html.Div(
+
+                [
+
+                    html.Label(
+
+                        "Failure Reason",
+
+                        className="filter-label"
+
+                    ),
+
+                    dbc.Input(
+
+                        id="failure-filter",
+
+                        placeholder="Timeout..."
+
+                    )
+
+                ],
+
+                className="filter-group"
+
+            ),
+
+            # =====================================================
+            # Report
+            # =====================================================
+
+            html.Div(
+
+                [
+
+                    html.Label(
+
+                        "Report Type",
+
+                        className="filter-label"
+
+                    ),
+
+                    dcc.Dropdown(
+
+                        id="report-filter",
+
+                        placeholder="Select Report"
+
+                    )
+
+                ],
+
+                className="filter-group"
+
+            ),
+
+            html.Hr(className="sidebar-divider"),
+
+            # =====================================================
+            # Buttons
+            # =====================================================
+
+            dbc.Button(
+
+                [
+
+                    html.I(
+
+                        className="fa-solid fa-arrow-rotate-left me-2"
+
+                    ),
+
+                    "Reset Filters"
+
+                ],
+
+                id="reset-filters",
+
+                color="danger",
+
+                className="w-100"
+
+            ),
+
+            html.Br(),
+
+            html.Br(),
+
+            dbc.Row(
+
+                [
+
+                    dbc.Col(
+
+                        dbc.Badge(
+
+                            "0 Active",
+
+                            id="filter-badge",
+
+                            color="primary"
+
+                        )
+
+                    ),
+
+                    dbc.Col(
+
+                        html.Div(
+
+                            id="active-filter-count",
+
+                            children="0 Active",
+
+                            className="text-end"
+
+                        )
 
                     )
 
@@ -501,8 +441,6 @@ def create_sidebar():
 
             )
 
-        ],
-
-        className="sidebar-card shadow-sm"
+        ]
 
     )

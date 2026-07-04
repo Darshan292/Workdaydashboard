@@ -1,5 +1,5 @@
 """
-Enterprise Status Distribution Chart
+Enterprise Execution Trend Chart
 """
 
 import plotly.graph_objects as go
@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 from config.theme import CURRENT_THEME
 
 
-class StatusDistributionChart:
+class ExecutionTrendChart:
 
     def __init__(self, dataframe):
 
@@ -21,7 +21,7 @@ class StatusDistributionChart:
 
             fig.update_layout(
 
-                title="Execution Status",
+                title="Execution Trend",
 
                 template=CURRENT_THEME["template"]
 
@@ -29,97 +29,89 @@ class StatusDistributionChart:
 
             return fig
 
-        status = (
+        trend = (
 
             self.df
 
-            .groupby("status")
+            .groupby(
+
+                self.df["event_date"].dt.date
+
+            )
 
             .size()
 
-            .reset_index(name="count")
+            .reset_index(name="executions")
 
-            .sort_values(
+            .rename(
 
-                "count",
+                columns={
 
-                ascending=False
+                    "event_date": "date"
+
+                }
 
             )
 
         )
 
-        color_map = {
+        trend["moving_average"] = (
 
-            "Success": CURRENT_THEME["success"],
+            trend["executions"]
 
-            "Failed": CURRENT_THEME["danger"],
+            .rolling(
 
-            "Warning": CURRENT_THEME["warning"],
+                3,
 
-            "Running": CURRENT_THEME["primary"],
-
-            "Cancelled": CURRENT_THEME["secondary"]
-
-        }
-
-        colors = [
-
-            color_map.get(
-
-                x,
-
-                CURRENT_THEME["info"]
+                min_periods=1
 
             )
 
-            for x in status["status"]
+            .mean()
 
-        ]
+        )
 
-        fig = go.Figure(
+        fig = go.Figure()
 
-            go.Pie(
+        # =====================================================
+        # Execution Line
+        # =====================================================
 
-                labels=status["status"],
+        fig.add_trace(
 
-                values=status["count"],
+            go.Scatter(
 
-                hole=0.72,
+                x=trend["date"],
 
-                sort=False,
+                y=trend["executions"],
+
+                mode="lines+markers",
+
+                name="Executions",
+
+                line=dict(
+
+                    color=CURRENT_THEME["primary"],
+
+                    width=4,
+
+                    shape="spline"
+
+                ),
 
                 marker=dict(
 
-                    colors=colors,
-
-                    line=dict(
-
-                        color=CURRENT_THEME["paper"],
-
-                        width=3
-
-                    )
+                    size=8
 
                 ),
 
-                textinfo="percent",
-
-                textfont=dict(
-
-                    size=14,
-
-                    color=CURRENT_THEME["text"]
-
-                ),
+                fill="tozeroy",
 
                 hovertemplate=
 
-                "<b>%{label}</b><br>"
+                "<b>%{x}</b><br>"
 
-                "Executions: %{value}<br>"
-
-                "Percentage: %{percent}"
+                "Executions : %{y}"
 
                 "<extra></extra>"
 
@@ -127,29 +119,53 @@ class StatusDistributionChart:
 
         )
 
-        total = int(status["count"].sum())
+        # =====================================================
+        # Moving Average
+        # =====================================================
 
-        fig.add_annotation(
+        fig.add_trace(
 
-            text=f"<b>{total}</b><br>Total",
+            go.Scatter(
 
-            showarrow=False,
+                x=trend["date"],
 
-            font=dict(
+                y=trend["moving_average"],
 
-                size=20,
+                mode="lines",
 
-                color=CURRENT_THEME["text"]
+                name="Moving Avg",
+
+                line=dict(
+
+                    color=CURRENT_THEME["warning"],
+
+                    width=3,
+
+                    dash="dash"
+
+                ),
+
+                hovertemplate=
+
+                "<b>%{x}</b><br>"
+
+                "Average : %{y:.2f}"
+
+                "<extra></extra>"
 
             )
 
         )
 
+        # =====================================================
+        # Layout
+        # =====================================================
+
         fig.update_layout(
 
             title=dict(
 
-                text="Execution Status Distribution",
+                text="Execution Trend",
 
                 x=0.02,
 
@@ -181,6 +197,8 @@ class StatusDistributionChart:
 
             ),
 
+            hovermode="x unified",
+
             transition=dict(
 
                 duration=600
@@ -191,13 +209,31 @@ class StatusDistributionChart:
 
                 orientation="h",
 
-                y=-0.12,
+                y=1.08,
 
-                x=0.5,
+                x=1,
 
-                xanchor="center"
+                xanchor="right"
 
             )
+
+        )
+
+        fig.update_xaxes(
+
+            showgrid=False,
+
+            title=""
+
+        )
+
+        fig.update_yaxes(
+
+            title="Executions",
+
+            gridcolor=CURRENT_THEME["grid"],
+
+            zeroline=False
 
         )
 
@@ -224,8 +260,8 @@ if __name__ == "__main__":
 
     master = DataMerger(cleaned).merge()
 
-    chart = StatusDistributionChart(master)
+    chart = ExecutionTrendChart(master)
 
-    fig = chart.build()
+    figure = chart.build()
 
-    fig.show()
+    figure.show()

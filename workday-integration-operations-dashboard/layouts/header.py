@@ -2,288 +2,313 @@
 Enterprise Dashboard Header
 """
 
-from dash import html, dcc
+from dash import html
+from dash import dcc
 import dash_bootstrap_components as dbc
 
-from config.settings import APP_NAME
 
-
-def create_header():
+def build_header():
 
     return dbc.Card(
 
         dbc.CardBody(
 
-            dbc.Row(
+            [
 
-                [
+                dbc.Row(
 
-                    # ======================================================
-                    # Title
-                    # ======================================================
+                    [
 
-                    dbc.Col(
+                        # =====================================================
+                        # Left
+                        # =====================================================
 
-                        [
+                        dbc.Col(
+
+                            [
+
+                                html.H2(
+
+                                    "Workday Integration Operations Center",
+
+                                    className="dashboard-title"
+
+                                ),
+
+                                html.Div(
+
+                                    [
+
+                                        html.Span(
+
+                                            "Enterprise Monitoring Dashboard",
+
+                                            className="text-muted"
+
+                                        ),
+
+                                        html.Span(
+
+                                            " | ",
+
+                                            className="mx-2"
+
+                                        ),
+
+                                        html.Span(
+
+                                            id="last-refresh",
+
+                                            children="Last Refresh : --"
+
+                                        )
+
+                                    ]
+
+                                )
+
+                            ],
+
+                            lg=6,
+
+                            md=12
+
+                        ),
+
+                        # =====================================================
+                        # Right
+                        # =====================================================
+
+                        dbc.Col(
+
+                            [
+
+                                dbc.Row(
+
+                                    [
+
+                                        dbc.Col(
+
+                                            dcc.DatePickerRange(
+
+                                                id="date-range",
+
+                                                display_format="DD MMM YYYY",
+
+                                                minimum_nights=0
+
+                                            ),
+
+                                            width="auto"
+
+                                        ),
+
+                                        dbc.Col(
+
+                                            dbc.Button(
+
+                                                [
+
+                                                    html.I(
+
+                                                        className="fa-solid fa-rotate",
+
+                                                        id="refresh-icon"
+
+                                                    ),
+
+                                                    " Refresh"
+
+                                                ],
+
+                                                id="refresh-button",
+
+                                                color="primary",
+
+                                                className="me-2"
+
+                                            ),
+
+                                            width="auto"
+
+                                        ),
+
+                                        dbc.Col(
+
+                                            dbc.Button(
+
+                                                [
+
+                                                    html.I(
+
+                                                        className="fa-solid fa-moon me-2"
+
+                                                    ),
+
+                                                    html.Span(
+
+                                                        "Dark Mode"
+
+                                                    )
+
+                                                ],
+
+                                                id="theme-toggle",
+
+                                                color="secondary"
+
+                                            ),
+
+                                            width="auto"
+
+                                        )
+
+                                    ],
+
+                                    justify="end",
+
+                                    className="g-2"
+
+                                )
+
+                            ],
+
+                            lg=6,
+
+                            md=12,
+
+                            className="text-end"
+
+                        )
+
+                    ],
+
+                    align="center"
+
+                ),
+
+                html.Hr(),
+
+                dbc.Row(
+
+                    [
+
+                        dbc.Col(
+
+                            dbc.Badge(
+
+                                "Running",
+
+                                id="refresh-status",
+
+                                color="success"
+
+                            ),
+
+                            width="auto"
+
+                        ),
+
+                        dbc.Col(
 
                             html.Div(
 
                                 [
 
-                                    html.I(
+                                    html.Strong("Refresh Count : "),
 
-                                        className="bi bi-speedometer2 dashboard-logo"
+                                    html.Span(
 
-                                    ),
+                                        "0",
 
-                                    html.Div(
-
-                                        [
-
-                                            html.H2(
-
-                                                APP_NAME,
-
-                                                className="dashboard-title"
-
-                                            ),
-
-                                            html.P(
-
-                                                "Enterprise Monitoring Platform",
-
-                                                className="dashboard-subtitle"
-
-                                            )
-
-                                        ]
-
-                                    )
-
-                                ],
-
-                                className="header-title"
-
-                            )
-
-                        ],
-
-                        lg=4,
-
-                        md=12
-
-                    ),
-
-                    # ======================================================
-                    # Date Range
-                    # ======================================================
-
-                    dbc.Col(
-
-                        [
-
-                            html.Label(
-
-                                "Date Range",
-
-                                className="header-label"
-
-                            ),
-
-                            dcc.DatePickerRange(
-
-                                id="date-range-picker",
-
-                                display_format="DD MMM YYYY",
-
-                                className="date-picker"
-
-                            )
-
-                        ],
-
-                        lg=3,
-
-                        md=6
-
-                    ),
-
-                    # ======================================================
-                    # Auto Refresh
-                    # ======================================================
-
-                    dbc.Col(
-
-                        [
-
-                            html.Label(
-
-                                "Refresh",
-
-                                className="header-label"
-
-                            ),
-
-                            dbc.InputGroup(
-
-                                [
-
-                                    dbc.InputGroupText(
-
-                                        html.I(
-
-                                            className="bi bi-arrow-repeat"
-
-                                        )
-
-                                    ),
-
-                                    dbc.Select(
-
-                                        id="refresh-interval",
-
-                                        options=[
-
-                                            {
-
-                                                "label": "30 Seconds",
-
-                                                "value": 30
-
-                                            },
-
-                                            {
-
-                                                "label": "1 Minute",
-
-                                                "value": 60
-
-                                            },
-
-                                            {
-
-                                                "label": "5 Minutes",
-
-                                                "value": 300
-
-                                            },
-
-                                            {
-
-                                                "label": "10 Minutes",
-
-                                                "value": 600
-
-                                            }
-
-                                        ],
-
-                                        value=60
+                                        id="refresh-count"
 
                                     )
 
                                 ]
 
-                            )
+                            ),
 
-                        ],
+                            width="auto"
 
-                        lg=2,
+                        ),
 
-                        md=6
-
-                    ),
-
-                    # ======================================================
-                    # Right Controls
-                    # ======================================================
-
-                    dbc.Col(
-
-                        [
+                        dbc.Col(
 
                             html.Div(
 
                                 [
 
-                                    html.Div(
+                                    html.Strong("Theme : "),
 
-                                        [
+                                    html.Span(
 
-                                            html.Small(
+                                        "Dark",
 
-                                                "Last Refresh",
-
-                                                className="refresh-label"
-
-                                            ),
-
-                                            html.Div(
-
-                                                id="last-refresh",
-
-                                                className="refresh-time"
-
-                                            )
-
-                                        ]
-
-                                    ),
-
-                                    dbc.Button(
-
-                                        html.I(
-
-                                            className="bi bi-arrow-clockwise"
-
-                                        ),
-
-                                        id="manual-refresh",
-
-                                        color="primary",
-
-                                        outline=True,
-
-                                        className="refresh-button"
-
-                                    ),
-
-                                    dbc.Switch(
-
-                                        id="theme-toggle",
-
-                                        label="Dark",
-
-                                        value=False,
-
-                                        className="theme-switch"
+                                        id="theme-indicator"
 
                                     )
 
-                                ],
+                                ]
 
-                                className="header-actions"
+                            ),
+
+                            width="auto"
+
+                        ),
+
+                        dbc.Col(
+
+                            dbc.Progress(
+
+                                id="refresh-progress",
+
+                                value=100,
+
+                                striped=True,
+
+                                animated=True,
+
+                                style={
+
+                                    "height":"8px",
+
+                                    "marginTop":"10px"
+
+                                }
 
                             )
 
-                        ],
+                        ),
 
-                        lg=3,
+                        dbc.Col(
 
-                        md=12,
+                            dbc.Switch(
 
-                        className="text-end"
+                                id="auto-refresh-toggle",
 
-                    )
+                                value=True,
 
-                ],
+                                label="Auto Refresh"
 
-                align="center"
+                            ),
 
-            )
+                            width="auto"
+
+                        )
+
+                    ],
+
+                    className="mt-2",
+
+                    align="center"
+
+                )
+
+            ]
 
         ),
 
-        className="header-card shadow-sm"
+        className="dashboard-header"
 
     )

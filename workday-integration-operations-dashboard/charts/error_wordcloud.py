@@ -11,6 +11,7 @@ from wordcloud import WordCloud
 from charts.base_chart import BaseChart
 from config.theme import CURRENT_THEME
 
+from PIL import Image
 
 class ErrorWordCloudChart(BaseChart):
 
@@ -134,10 +135,10 @@ class ErrorWordCloudChart(BaseChart):
         )
 
         wc.generate_from_frequencies(
-
             frequencies
-
         )
+
+        image = wc.to_image()
 
         fig = go.Figure()
 
@@ -145,7 +146,7 @@ class ErrorWordCloudChart(BaseChart):
 
             dict(
 
-                source=wc.to_array(),
+                source=image,
 
                 x=0,
 

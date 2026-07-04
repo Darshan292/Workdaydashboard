@@ -1,0 +1,344 @@
+/* ==========================================================
+   Enterprise Loading & Skeleton Styles
+========================================================== */
+
+/* ==========================================================
+   Dash Loading Overlay
+========================================================== */
+
+._dash-loading{
+
+    position:fixed !important;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    background:rgba(15,23,42,.18);
+
+    backdrop-filter:blur(6px);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:99999;
+
+}
+
+/* ==========================================================
+   Loading Spinner
+========================================================== */
+
+.enterprise-spinner{
+
+    width:72px;
+
+    height:72px;
+
+    border-radius:50%;
+
+    border:6px solid rgba(255,255,255,.15);
+
+    border-top:6px solid var(--primary);
+
+    animation:enterpriseSpin .9s linear infinite;
+
+}
+
+@keyframes enterpriseSpin{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/* ==========================================================
+   Skeleton Card
+========================================================== */
+
+.skeleton-card{
+
+    width:100%;
+
+    height:180px;
+
+    border-radius:18px;
+
+    background:var(--surface);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+/* ==========================================================
+   Skeleton KPI
+========================================================== */
+
+.skeleton-kpi{
+
+    width:100%;
+
+    height:120px;
+
+    border-radius:16px;
+
+    background:var(--surface);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+/* ==========================================================
+   Skeleton Chart
+========================================================== */
+
+.skeleton-chart{
+
+    width:100%;
+
+    height:420px;
+
+    border-radius:18px;
+
+    background:var(--surface);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+/* ==========================================================
+   Skeleton Table
+========================================================== */
+
+.skeleton-table{
+
+    width:100%;
+
+    height:650px;
+
+    border-radius:18px;
+
+    background:var(--surface);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+/* ==========================================================
+   Shimmer Effect
+========================================================== */
+
+.skeleton-card::before,
+.skeleton-kpi::before,
+.skeleton-chart::before,
+.skeleton-table::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    transform:translateX(-100%);
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            rgba(255,255,255,.18),
+
+            transparent
+
+        );
+
+    animation:skeletonShimmer 1.5s infinite;
+
+}
+
+@keyframes skeletonShimmer{
+
+    100%{
+
+        transform:translateX(100%);
+
+    }
+
+}
+
+/* ==========================================================
+   Placeholder Lines
+========================================================== */
+
+.skeleton-line{
+
+    height:14px;
+
+    border-radius:10px;
+
+    margin-bottom:12px;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.skeleton-line.short{
+
+    width:40%;
+
+}
+
+.skeleton-line.medium{
+
+    width:70%;
+
+}
+
+.skeleton-line.long{
+
+    width:100%;
+
+}
+
+/* ==========================================================
+   Loading Text
+========================================================== */
+
+.loading-text{
+
+    margin-top:18px;
+
+    text-align:center;
+
+    color:var(--text);
+
+    font-weight:600;
+
+    letter-spacing:.5px;
+
+}
+
+/* ==========================================================
+   Pulse
+========================================================== */
+
+.loading-pulse{
+
+    animation:loadingPulse 1.8s infinite;
+
+}
+
+@keyframes loadingPulse{
+
+    0%{
+
+        opacity:.45;
+
+    }
+
+    50%{
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        opacity:.45;
+
+    }
+
+}
+
+/* ==========================================================
+   Blur During Refresh
+========================================================== */
+
+.blur-loading{
+
+    filter:blur(2px);
+
+    pointer-events:none;
+
+    transition:.25s;
+
+}
+
+/* ==========================================================
+   Fade In
+========================================================== */
+
+.loading-fade{
+
+    animation:loadingFade .4s ease;
+
+}
+
+@keyframes loadingFade{
+
+    from{
+
+        opacity:0;
+
+    }
+
+    to{
+
+        opacity:1;
+
+    }
+
+}
+
+/* ==========================================================
+   Responsive
+========================================================== */
+
+@media(max-width:768px){
+
+    .enterprise-spinner{
+
+        width:54px;
+
+        height:54px;
+
+    }
+
+    .skeleton-chart{
+
+        height:320px;
+
+    }
+
+    .skeleton-table{
+
+        height:450px;
+
+    }
+
+}

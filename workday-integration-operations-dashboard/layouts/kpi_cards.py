@@ -6,275 +6,381 @@ from dash import html
 import dash_bootstrap_components as dbc
 
 
-KPI_CONFIG = [
+def build_kpi_card(
 
-    {
-        "id": "kpi-total",
-        "title": "Total Executions",
-        "icon": "bi bi-bar-chart-fill",
-        "color": "primary"
-    },
+    title,
+    value_id,
+    icon,
+    color,
+    arrow_id=None
 
-    {
-        "id": "kpi-success",
-        "title": "Successful",
-        "icon": "bi bi-check-circle-fill",
-        "color": "success"
-    },
+):
 
-    {
-        "id": "kpi-failed",
-        "title": "Failed",
-        "icon": "bi bi-x-circle-fill",
-        "color": "danger"
-    },
+    return dbc.Card(
 
-    {
-        "id": "kpi-warning",
-        "title": "Warnings",
-        "icon": "bi bi-exclamation-triangle-fill",
-        "color": "warning"
-    },
+        dbc.CardBody(
 
-    {
-        "id": "kpi-success-rate",
-        "title": "Success Rate",
-        "icon": "bi bi-graph-up-arrow",
-        "color": "success"
-    },
+            [
 
-    {
-        "id": "kpi-failure-rate",
-        "title": "Failure Rate",
-        "icon": "bi bi-graph-down-arrow",
-        "color": "danger"
-    },
+                dbc.Row(
 
-    {
-        "id": "kpi-avg-runtime",
-        "title": "Avg Runtime",
-        "icon": "bi bi-clock-history",
-        "color": "info"
-    },
+                    [
 
-    {
-        "id": "kpi-max-runtime",
-        "title": "Max Runtime",
-        "icon": "bi bi-stopwatch-fill",
-        "color": "secondary"
-    },
+                        dbc.Col(
 
-    {
-        "id": "kpi-integrations",
-        "title": "Active Integrations",
-        "icon": "bi bi-diagram-3-fill",
-        "color": "primary"
-    },
+                            [
 
-    {
-        "id": "kpi-items",
-        "title": "Items Processed",
-        "icon": "bi bi-box-seam-fill",
-        "color": "primary"
-    },
+                                html.Div(
 
-    {
-        "id": "kpi-critical",
-        "title": "Critical Failures",
-        "icon": "bi bi-fire",
-        "color": "danger"
-    },
+                                    title,
 
-    {
-        "id": "kpi-reports",
-        "title": "Reports",
-        "icon": "bi bi-file-earmark-bar-graph-fill",
-        "color": "secondary"
-    },
+                                    className="kpi-title"
 
-    {
-        "id": "kpi-slow",
-        "title": "Slow Integrations",
-        "icon": "bi bi-hourglass-split",
-        "color": "warning"
-    },
+                                ),
 
-    {
-        "id": "kpi-throughput",
-        "title": "Throughput",
-        "icon": "bi bi-lightning-charge-fill",
-        "color": "info"
-    },
+                                html.H2(
 
-    {
-        "id": "kpi-today",
-        "title": "Today's Executions",
-        "icon": "bi bi-calendar-event-fill",
-        "color": "success"
-    }
+                                    "0",
 
-]
+                                    id=value_id,
 
+                                    className="kpi-value",
 
-def create_kpi_card(card):
+                                    **{
 
-    return dbc.Col(
+                                        "data-value": 0
 
-        dbc.Card(
+                                    }
 
-            dbc.CardBody(
+                                )
 
-                [
+                            ]
 
-                    html.Div(
+                        ),
 
-                        [
+                        dbc.Col(
 
                             html.Div(
 
-                                [
+                                html.I(
 
-                                    html.I(
+                                    className=icon
 
-                                        className=f"{card['icon']} kpi-icon"
+                                ),
 
-                                    )
-
-                                ],
-
-                                className=f"kpi-icon-container bg-{card['color']}"
+                                className=f"kpi-icon icon-{color}"
 
                             ),
 
-                            html.Div(
+                            width="auto"
 
-                                [
+                        )
 
-                                    html.Div(
+                    ],
 
-                                        card["title"],
+                    align="center"
 
-                                        className="kpi-title"
+                ),
 
-                                    ),
+                html.Hr(),
 
-                                    html.H2(
+                dbc.Row(
 
-                                        "0",
+                    [
 
-                                        id=f"{card['id']}-value",
+                        dbc.Col(
 
-                                        className="kpi-value"
+                            html.Small(
 
-                                    ),
+                                "Trend",
 
-                                    html.Div(
-
-                                        [
-
-                                            html.Span(
-
-                                                "▬",
-
-                                                id=f"{card['id']}-arrow",
-
-                                                className="kpi-arrow"
-
-                                            ),
-
-                                            html.Span(
-
-                                                "0%",
-
-                                                id=f"{card['id']}-delta",
-
-                                                className="kpi-delta"
-
-                                            )
-
-                                        ],
-
-                                        className="kpi-trend"
-
-                                    )
-
-                                ],
-
-                                className="kpi-content"
+                                className="text-muted"
 
                             )
 
-                        ],
+                        ),
 
-                        className="kpi-wrapper"
+                        dbc.Col(
 
-                    )
+                            html.H5(
 
-                ]
+                                "►",
 
-            ),
+                                id=arrow_id,
 
-            className="kpi-card"
+                                className="kpi-trend trend-neutral"
+
+                            )
+
+                            if arrow_id
+
+                            else
+
+                            html.Div(),
+
+                            width="auto"
+
+                        )
+
+                    ],
+
+                    align="center"
+
+                )
+
+            ]
 
         ),
 
-        xl=2,
-        lg=3,
-        md=4,
-        sm=6,
-        xs=12
+        className=f"kpi-card card-{color}"
 
     )
 
 
-def create_kpi_section():
+def build_kpi_cards():
 
-    rows = []
+    cards = [
 
-    current = []
+        (
 
-    for index, card in enumerate(KPI_CONFIG):
+            "Total Executions",
 
-        current.append(
+            "kpi-total-executions",
 
-            create_kpi_card(card)
+            "fa-solid fa-list-check",
+
+            "primary",
+
+            None
+
+        ),
+
+        (
+
+            "Successful Executions",
+
+            "kpi-successful-executions",
+
+            "fa-solid fa-circle-check",
+
+            "success",
+
+            "kpi-success-arrow"
+
+        ),
+
+        (
+
+            "Failed Executions",
+
+            "kpi-failed-executions",
+
+            "fa-solid fa-circle-xmark",
+
+            "danger",
+
+            "kpi-failure-arrow"
+
+        ),
+
+        (
+
+            "Warning Executions",
+
+            "kpi-warning-executions",
+
+            "fa-solid fa-triangle-exclamation",
+
+            "warning",
+
+            None
+
+        ),
+
+        (
+
+            "Success Rate",
+
+            "kpi-success-rate",
+
+            "fa-solid fa-chart-line",
+
+            "success",
+
+            None
+
+        ),
+
+        (
+
+            "Failure Rate",
+
+            "kpi-failure-rate",
+
+            "fa-solid fa-chart-column",
+
+            "danger",
+
+            None
+
+        ),
+
+        (
+
+            "Average Runtime",
+
+            "kpi-average-runtime",
+
+            "fa-solid fa-stopwatch",
+
+            "primary",
+
+            "kpi-runtime-arrow"
+
+        ),
+
+        (
+
+            "Longest Runtime",
+
+            "kpi-longest-runtime",
+
+            "fa-solid fa-hourglass-end",
+
+            "warning",
+
+            None
+
+        ),
+
+        (
+
+            "Active Integrations",
+
+            "kpi-active-integrations",
+
+            "fa-solid fa-plug",
+
+            "primary",
+
+            None
+
+        ),
+
+        (
+
+            "Items Processed",
+
+            "kpi-total-items",
+
+            "fa-solid fa-boxes-stacked",
+
+            "success",
+
+            None
+
+        ),
+
+        (
+
+            "Critical Failures",
+
+            "kpi-critical-failures",
+
+            "fa-solid fa-bug",
+
+            "danger",
+
+            None
+
+        ),
+
+        (
+
+            "Processing Reports",
+
+            "kpi-processing-reports",
+
+            "fa-solid fa-file-lines",
+
+            "primary",
+
+            None
+
+        ),
+
+        (
+
+            "Slow Integrations",
+
+            "kpi-slow-integrations",
+
+            "fa-solid fa-gauge-high",
+
+            "warning",
+
+            None
+
+        ),
+
+        (
+
+            "Average Throughput",
+
+            "kpi-throughput",
+
+            "fa-solid fa-arrow-trend-up",
+
+            "success",
+
+            None
+
+        ),
+
+        (
+
+            "Today's Executions",
+
+            "kpi-today-executions",
+
+            "fa-solid fa-calendar-day",
+
+            "primary",
+
+            None
 
         )
 
-        if len(current) == 5:
+    ]
 
-            rows.append(
+    return dbc.Row(
 
-                dbc.Row(
+        [
 
-                    current,
+            dbc.Col(
 
-                    className="g-3 mb-3"
+                build_kpi_card(
 
-                )
+                    *card
 
-            )
+                ),
 
-            current = []
+                xl=3,
 
-    if current:
+                lg=4,
 
-        rows.append(
+                md=6,
 
-            dbc.Row(
+                sm=12,
 
-                current,
-
-                className="g-3"
+                className="mb-4"
 
             )
 
-        )
+            for card in cards
 
-    return html.Div(
+        ],
 
-        rows,
-
-        id="kpi-section"
+        className="g-3"
 
     )

@@ -1,0 +1,338 @@
+/* ===========================================================
+   Workday Integration Operations Center
+   Enterprise Theme
+=========================================================== */
+
+:root{
+
+    /* Primary */
+
+    --primary:#2563EB;
+    --primary-light:#3B82F6;
+    --primary-dark:#1D4ED8;
+
+    /* Success */
+
+    --success:#16A34A;
+    --success-light:#22C55E;
+
+    /* Warning */
+
+    --warning:#F59E0B;
+    --warning-light:#FBBF24;
+
+    /* Danger */
+
+    --danger:#DC2626;
+    --danger-light:#EF4444;
+
+    /* Info */
+
+    --info:#0EA5E9;
+
+    /* Text */
+
+    --text:#1F2937;
+    --text-light:#64748B;
+
+    /* Borders */
+
+    --border:#E5E7EB;
+
+    /* Radius */
+
+    --radius-sm:8px;
+    --radius:14px;
+    --radius-lg:20px;
+
+    /* Shadow */
+
+    --shadow-sm:0 2px 8px rgba(0,0,0,.06);
+
+    --shadow:
+
+        0 6px 18px rgba(0,0,0,.08);
+
+    --shadow-lg:
+
+        0 15px 40px rgba(0,0,0,.15);
+
+    /* Animation */
+
+    --speed-fast:.18s;
+    --speed:.3s;
+    --speed-slow:.45s;
+
+}
+
+/* ===========================================================
+   LIGHT
+=========================================================== */
+
+.light-theme{
+
+    --background:#F5F7FB;
+
+    --surface:#FFFFFF;
+
+    --surface-2:#F8FAFC;
+
+    --card:#FFFFFF;
+
+    --sidebar:#FFFFFF;
+
+    --header:#FFFFFF;
+
+    --chart:#FFFFFF;
+
+    --table:#FFFFFF;
+
+    --text:#111827;
+
+    --muted:#64748B;
+
+    --divider:#E5E7EB;
+
+}
+
+/* ===========================================================
+   DARK
+=========================================================== */
+
+.dark-theme{
+
+    --background:#0F172A;
+
+    --surface:#111827;
+
+    --surface-2:#1E293B;
+
+    --card:#162033;
+
+    --sidebar:#111827;
+
+    --header:#111827;
+
+    --chart:#162033;
+
+    --table:#162033;
+
+    --text:#F8FAFC;
+
+    --muted:#94A3B8;
+
+    --divider:#334155;
+
+}
+
+/* ===========================================================
+   GLOBAL
+=========================================================== */
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    margin:0;
+
+    padding:0;
+
+    background:var(--background);
+
+    color:var(--text);
+
+    font-family:
+
+        "Inter",
+
+        "Segoe UI",
+
+        sans-serif;
+
+    transition:
+
+        background var(--speed),
+
+        color var(--speed);
+
+}
+
+/* ===========================================================
+   Links
+=========================================================== */
+
+a{
+
+    color:var(--primary);
+
+    text-decoration:none;
+
+}
+
+a:hover{
+
+    color:var(--primary-light);
+
+}
+
+/* ===========================================================
+   Selection
+=========================================================== */
+
+::selection{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+/* ===========================================================
+   Scrollbar
+=========================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+    height:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#94A3B8;
+
+    border-radius:30px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#64748B;
+
+}
+
+/* ===========================================================
+   Cards
+=========================================================== */
+
+.dashboard-card{
+
+    background:var(--card);
+
+    border:none;
+
+    border-radius:18px;
+
+    box-shadow:var(--shadow);
+
+    transition:all .25s ease;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:var(--shadow-lg);
+
+}
+
+/* ===========================================================
+   Titles
+=========================================================== */
+
+.section-title{
+
+    font-size:26px;
+
+    font-weight:700;
+
+    color:var(--text);
+
+    margin-bottom:8px;
+
+}
+
+.section-divider{
+
+    border-top:1px solid var(--divider);
+
+    margin-bottom:25px;
+
+}
+
+/* ===========================================================
+   Graph Container
+=========================================================== */
+
+.enterprise-chart{
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+}
+
+/* ===========================================================
+   Utilities
+=========================================================== */
+
+.text-muted{
+
+    color:var(--muted)!important;
+
+}
+
+.shadow-soft{
+
+    box-shadow:var(--shadow);
+
+}
+
+.rounded-xl{
+
+    border-radius:18px;
+
+}
+
+.fade-transition{
+
+    transition:all .3s ease;
+
+}
+
+/* ===========================================================
+   Responsive
+=========================================================== */
+
+@media(max-width:992px){
+
+    .section-title{
+
+        font-size:22px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .section-title{
+
+        font-size:18px;
+
+    }
+
+}

@@ -1,0 +1,361 @@
+/* ==========================================================
+   Enterprise Dashboard Layout
+========================================================== */
+
+.dashboard-container{
+
+    background:var(--background);
+
+    min-height:100vh;
+
+    padding:24px;
+
+}
+
+/* ==========================================================
+   Header
+========================================================== */
+
+.dashboard-header{
+
+    background:var(--header);
+
+    border-radius:18px;
+
+    padding:18px 28px;
+
+    margin-bottom:22px;
+
+    box-shadow:var(--shadow);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.dashboard-title{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:var(--text);
+
+    margin:0;
+
+}
+
+.dashboard-subtitle{
+
+    color:var(--muted);
+
+    font-size:14px;
+
+    margin-top:4px;
+
+}
+
+/* ==========================================================
+   Main Content
+========================================================== */
+
+.content-wrapper{
+
+    display:flex;
+
+    gap:24px;
+
+}
+
+.main-content{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:24px;
+
+}
+
+/* ==========================================================
+   Sections
+========================================================== */
+
+.dashboard-section{
+
+    margin-bottom:45px;
+
+    animation:fadeUp .55s ease;
+
+}
+
+.section-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:18px;
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+.section-divider{
+
+    margin-bottom:24px;
+
+    opacity:.25;
+
+}
+
+/* ==========================================================
+   Bootstrap Cards
+========================================================== */
+
+.card{
+
+    border:none;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+}
+
+.card-header{
+
+    background:transparent;
+
+    border:none;
+
+    padding:18px 22px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+
+.card-body{
+
+    padding:18px;
+
+}
+
+/* ==========================================================
+   Rows
+========================================================== */
+
+.row{
+
+    --bs-gutter-x:1.5rem;
+
+    --bs-gutter-y:1.5rem;
+
+}
+
+/* ==========================================================
+   Graphs
+========================================================== */
+
+.js-plotly-plot{
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+}
+
+.plot-container{
+
+    border-radius:16px;
+
+}
+
+/* ==========================================================
+   Loading
+========================================================== */
+
+.loading-overlay{
+
+    backdrop-filter:blur(6px);
+
+}
+
+/* ==========================================================
+   Footer
+========================================================== */
+
+.dashboard-footer{
+
+    padding:20px;
+
+    text-align:center;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+}
+
+/* ==========================================================
+   KPI Section
+========================================================== */
+
+.kpi-container{
+
+    display:grid;
+
+    grid-template-columns:
+
+        repeat(auto-fit,minmax(220px,1fr));
+
+    gap:18px;
+
+    margin-bottom:28px;
+
+}
+
+/* ==========================================================
+   Utility
+========================================================== */
+
+.mt-section{
+
+    margin-top:32px;
+
+}
+
+.mb-section{
+
+    margin-bottom:32px;
+
+}
+
+.full-height{
+
+    height:100%;
+
+}
+
+.full-width{
+
+    width:100%;
+
+}
+
+.center{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* ==========================================================
+   Fade Animation
+========================================================== */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(16px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================================
+   Responsive
+========================================================== */
+
+@media(max-width:1400px){
+
+    .dashboard-title{
+
+        font-size:26px;
+
+    }
+
+}
+
+@media(max-width:992px){
+
+    .dashboard-container{
+
+        padding:16px;
+
+    }
+
+    .dashboard-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:12px;
+
+    }
+
+    .content-wrapper{
+
+        flex-direction:column;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .dashboard-title{
+
+        font-size:22px;
+
+    }
+
+    .card-header{
+
+        font-size:16px;
+
+    }
+
+}
+
+@media(max-width:576px){
+
+    .dashboard-container{
+
+        padding:12px;
+
+    }
+
+    .kpi-container{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
