@@ -13,35 +13,175 @@ class DataMerger:
 
     def merge(self):
 
-        failures = self.frames.get("Failures", pd.DataFrame()).copy()
+        failures = self.frames.get(
+            "Failures",
+            pd.DataFrame()
+        ).copy()
 
-        events = self.frames.get("Event Statistics", pd.DataFrame()).copy()
+        events = self.frames.get(
+            "Event Statistics",
+            pd.DataFrame()
+        ).copy()
 
-        processing = self.frames.get("Processing Time", pd.DataFrame()).copy()
+        processing = self.frames.get(
+            "Processing Time",
+            pd.DataFrame()
+        ).copy()
 
         failures = self.prepare_failures(failures)
-
         events = self.prepare_events(events)
-
         processing = self.prepare_processing(processing)
 
-        master = pd.concat(
+        # --------------------------------------------------
+        # Event Statistics is the MASTER dataset
+        # --------------------------------------------------
 
-            [
+        master = events.copy()
 
-                failures,
+        # --------------------------------------------------
+        # Merge Processing report
+        # (adds runtime if available)
+        # --------------------------------------------------
 
-                events,
+        if (
+            not processing.empty
+            and "integration_event" in master.columns
+            and "integration_event" in processing.columns
+        ):
 
-                processing
+            processing = processing.drop_duplicates(
+                subset=["integration_event"]
+            )
 
-            ],
+            processing_columns = [
 
-            ignore_index=True,
+                c
 
-            sort=False
+                for c in [
 
-        )
+                    "integration_event",
+                    "processing_time_seconds"
+
+                ]
+
+                if c in processing.columns
+
+            ]
+
+            master = master.merge(
+
+                processing[processing_columns],
+
+                on="integration_event",
+
+                how="left",
+
+                suffixes=("", "_processing")
+
+            )
+
+            if "processing_time_seconds_processing" in master.columns:
+
+                master["processing_time_seconds"] = (
+
+                    master["processing_time_seconds_processing"]
+
+                    .fillna(
+
+                        master["processing_time_seconds"]
+
+                    )
+
+                )
+
+                master.drop(
+
+                    columns=[
+
+                        "processing_time_seconds_processing"
+
+                    ],
+
+                    inplace=True
+
+                )
+
+        # --------------------------------------------------
+        # Merge Failure report
+        # --------------------------------------------------
+
+        if (
+            not failures.empty
+            and "integration_event" in master.columns
+            and "integration_event" in failures.columns
+        ):
+
+            failures = failures.drop_duplicates(
+                subset=["integration_event"]
+            )
+
+            failure_columns = [
+
+                c
+
+                for c in [
+
+                    "integration_event",
+                    "errors_warnings",
+                    "response_message",
+                    "messages"
+
+                ]
+
+                if c in failures.columns
+
+            ]
+
+            master = master.merge(
+
+                failures[failure_columns],
+
+                on="integration_event",
+
+                how="left",
+
+                suffixes=("", "_failure")
+
+            )
+
+            for column in [
+
+                "errors_warnings",
+                "response_message",
+                "messages"
+
+            ]:
+
+                failure_col = column + "_failure"
+
+                if failure_col in master.columns:
+
+                    master[column] = (
+
+                        master[failure_col]
+
+                        .fillna(
+
+                            master[column]
+
+                        )
+
+                    )
+
+                    master.drop(
+
+                        columns=[failure_col],
+
+                        inplace=True
+
+                    )
+
+        master["source"] = "Master"
 
         master = self.normalize(master)
 

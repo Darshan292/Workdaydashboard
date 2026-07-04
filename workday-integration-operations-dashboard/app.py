@@ -86,6 +86,34 @@ master_dataframe = DataMerger(
 ).merge()
 
 
+print("\n========== DATA SUMMARY ==========")
+
+print("Master shape:", master_dataframe.shape)
+
+print("\nColumns:")
+print(master_dataframe.columns.tolist())
+
+print("\nStatus counts:")
+print(master_dataframe["status"].value_counts(dropna=False))
+
+print("\nSource counts:")
+if "source" in master_dataframe.columns:
+    print(master_dataframe["source"].value_counts())
+
+print("\nFailed rows:")
+print(
+    master_dataframe[
+        master_dataframe["status"] == "Failed"
+    ][
+        [
+            "integration_event",
+            "status"
+        ]
+    ].head(20)
+)
+
+print("==================================")
+
 # ============================================================
 # Layout
 # ============================================================

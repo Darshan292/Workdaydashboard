@@ -70,43 +70,35 @@ class DataCleaner:
         if "status" not in self.df.columns:
             return
 
-        mapping = {
+        status = self.df["status"].fillna("").str.lower()
 
-            "success": "Success",
+        self.df["status"] = "Unknown"
 
-            "completed": "Success",
+        self.df.loc[
+            status.str.contains("completed") &
+            ~status.str.contains("error"),
+            "status"
+        ] = "Success"
 
-            "successful": "Success",
+        self.df.loc[
+            status.str.contains("error|failed|failure"),
+            "status"
+        ] = "Failed"
 
-            "warning": "Warning",
+        self.df.loc[
+            status.str.contains("warning|warn"),
+            "status"
+        ] = "Warning"
 
-            "warn": "Warning",
+        self.df.loc[
+            status.str.contains("running"),
+            "status"
+        ] = "Running"
 
-            "failed": "Failed",
-
-            "failure": "Failed",
-
-            "error": "Failed",
-
-            "running": "Running",
-
-            "cancelled": "Cancelled",
-
-            "canceled": "Cancelled"
-
-        }
-
-        self.df["status"] = (
-
-            self.df["status"]
-
-            .str.lower()
-
-            .map(mapping)
-
-            .fillna(self.df["status"])
-
-        )
+        self.df.loc[
+            status.str.contains("cancel"),
+            "status"
+        ] = "Cancelled"
 
     def clean_dates(self):
 
