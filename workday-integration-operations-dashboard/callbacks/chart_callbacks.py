@@ -266,6 +266,9 @@ def register_chart_callbacks(app):
         # =====================================================
         # Overview Charts
         # =====================================================
+        import time
+
+        start = time.perf_counter()
 
         execution_trend = (
 
@@ -278,6 +281,7 @@ def register_chart_callbacks(app):
             .build()
 
         )
+        print(f"ExecutionTrend: {time.perf_counter() - start:.2f}s")
 
         status_distribution = (
 
@@ -290,6 +294,8 @@ def register_chart_callbacks(app):
             .build()
 
         )
+        print(f"StatustDistribution: {time.perf_counter() - start:.2f}s")
+
 
         calendar_heatmap = (
 
@@ -302,6 +308,8 @@ def register_chart_callbacks(app):
             .build()
 
         )
+        print(f"CalenderHeatmap: {time.perf_counter() - start:.2f}s")
+
 
         weekday_heatmap = (
 
@@ -314,6 +322,8 @@ def register_chart_callbacks(app):
             .build()
 
         )
+        print(f"WeekdayHeatmap: {time.perf_counter() - start:.2f}s")
+
 
         hourly_trend = (
 
@@ -326,6 +336,8 @@ def register_chart_callbacks(app):
             .build()
 
         )
+        print(f"HourlyHeatmap: {time.perf_counter() - start:.2f}s")
+
 
         # =====================================================
         # Performance Charts
@@ -342,6 +354,8 @@ def register_chart_callbacks(app):
             .build()
 
         )
+        print(f"weeklyare: {time.perf_counter() - start:.2f}s")
+
 
         monthly_area = (
 
@@ -354,6 +368,8 @@ def register_chart_callbacks(app):
             .build()
 
         )
+        print(f"Monthlyare: {time.perf_counter() - start:.2f}s")
+
 
         top_integrations = (
 
@@ -366,6 +382,8 @@ def register_chart_callbacks(app):
             .build()
 
         )
+        print(f"topintegrations: {time.perf_counter() - start:.2f}s")
+
 
         slow_integrations = (
 
@@ -378,6 +396,8 @@ def register_chart_callbacks(app):
             .build()
 
         )
+        print(f"slowintegrations: {time.perf_counter() - start:.2f}s")
+
 
         runtime_distribution = (
 
@@ -390,6 +410,8 @@ def register_chart_callbacks(app):
             .build()
 
         )
+        print(f"runtimedistribution: {time.perf_counter() - start:.2f}s")
+
 
         runtime_outliers = (
 
@@ -402,6 +424,8 @@ def register_chart_callbacks(app):
             .build()
 
         )
+        print(f"runtimeoutliers: {time.perf_counter() - start:.2f}s")
+
 
         processing_timeline = (
 
@@ -414,6 +438,8 @@ def register_chart_callbacks(app):
             .build()
 
         )
+        print(f"processingtimeline: {time.perf_counter() - start:.2f}s")
+
 
         # =====================================================
         # Prepare Return Objects (Part 1)
@@ -472,6 +498,8 @@ def register_chart_callbacks(app):
             ).build()
 
         )
+        print(f"failuretrend: {time.perf_counter() - start:.2f}s")
+
 
         failure_treemap = (
 
@@ -482,6 +510,8 @@ def register_chart_callbacks(app):
             ).build()
 
         )
+        print(f"failuretreemap: {time.perf_counter() - start:.2f}s")
+
 
         failure_sunburst = (
 
@@ -492,6 +522,8 @@ def register_chart_callbacks(app):
             ).build()
 
         )
+        print(f"failuresunburts: {time.perf_counter() - start:.2f}s")
+
 
         failure_sankey = (
 
@@ -502,6 +534,8 @@ def register_chart_callbacks(app):
             ).build()
 
         )
+        print(f"failuresankey: {time.perf_counter() - start:.2f}s")
+
 
         error_wordcloud = (
 
@@ -512,6 +546,8 @@ def register_chart_callbacks(app):
             ).build()
 
         )
+        print(f"errorwordcloud: {time.perf_counter() - start:.2f}s")
+
 
         # =====================================================
         # Analytics
@@ -526,6 +562,8 @@ def register_chart_callbacks(app):
             ).build()
 
         )
+        print(f"integrationhealth: {time.perf_counter() - start:.2f}s")
+
 
         health_gauges = (
 
@@ -536,6 +574,8 @@ def register_chart_callbacks(app):
             ).build()
 
         )
+        print(f"healthgauges: {time.perf_counter() - start:.2f}s")
+
 
         execution_waterfall = (
 
@@ -546,6 +586,8 @@ def register_chart_callbacks(app):
             ).build()
 
         )
+        print(f"executionwaterfall: {time.perf_counter() - start:.2f}s")
+
 
         items_treemap = (
 
@@ -556,6 +598,8 @@ def register_chart_callbacks(app):
             ).build()
 
         )
+        print(f"itemstreemap: {time.perf_counter() - start:.2f}s")
+
 
         processing_violin = (
 
@@ -566,6 +610,8 @@ def register_chart_callbacks(app):
             ).build()
 
         )
+        print(f"processingviolin: {time.perf_counter() - start:.2f}s")
+
 
         success_failure = (
 
@@ -576,6 +622,8 @@ def register_chart_callbacks(app):
             ).build()
 
         )
+        print(f"successfailure: {time.perf_counter() - start:.2f}s")
+
 
         integration_ranking = (
 
@@ -586,6 +634,8 @@ def register_chart_callbacks(app):
             ).build()
 
         )
+        print(f"integrationranking: {time.perf_counter() - start:.2f}s")
+
 
         # =====================================================
         # Extend Figure List
@@ -648,6 +698,8 @@ def register_chart_callbacks(app):
             ).build()
 
         )
+        print(f"ExecutionTimeline: {time.perf_counter() - start:.2f}s")
+
 
         trend_ranking = (
 
@@ -658,6 +710,8 @@ def register_chart_callbacks(app):
             ).build()
 
         )
+        print(f"trendranking: {time.perf_counter() - start:.2f}s")
+
 
         # =====================================================
         # Append Monitoring Charts

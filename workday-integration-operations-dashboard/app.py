@@ -146,6 +146,10 @@ register_kpi_callbacks(
 
 if __name__ == "__main__":
 
+    @server.route("/health")
+    def health():
+        return "OK"
+
     app.run(
 
         debug= DEBUG,
