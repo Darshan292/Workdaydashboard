@@ -46,11 +46,11 @@ def build_kpi_card(
 
                                     className="kpi-value",
 
-                                    **{
+                                    # **{
 
-                                        "data-value": 0
+                                    #     "data-value": 0
 
-                                    }
+                                    # }
 
                                 )
 

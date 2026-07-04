@@ -4,8 +4,7 @@ Enterprise KPI Callbacks
 
 import pandas as pd
 
-from dash import Input
-from dash import Output
+from dash import Input, Output
 
 from services.kpi_engine import KPIEngine
 
@@ -13,9 +12,7 @@ from services.kpi_engine import KPIEngine
 def register_kpi_callbacks(app):
 
     @app.callback(
-
         [
-
             Output("kpi-total-executions", "children"),
             Output("kpi-successful-executions", "children"),
             Output("kpi-failed-executions", "children"),
@@ -39,160 +36,88 @@ def register_kpi_callbacks(app):
 
             Output("kpi-success-arrow", "children"),
             Output("kpi-failure-arrow", "children"),
-            Output("kpi-runtime-arrow", "children")
-
+            Output("kpi-runtime-arrow", "children"),
         ],
-
-        Input(
-
-            "filtered-data",
-
-            "data"
-
-        )
-
+        Input("filtered-data", "data"),
     )
+    def update_kpis(filtered_data):
 
-    def update_kpis(
-
-        filtered_data
-
-    ):
-
-        if filtered_data is None:
-
-            df = pd.DataFrame()
-
-        else:
-
-            df = pd.DataFrame(
-
-                filtered_data
-
+        if not filtered_data:
+            return (
+                "0", "0", "0", "0",
+                "0%", "0%",
+                "0 s", "0 s",
+                "0", "0",
+                "0", "0",
+                "0", "0",
+                "0",
+                "▬", "▬", "▬"
             )
+
+        df = pd.DataFrame(filtered_data)
 
         if df.empty:
-
             return (
-
+                "0", "0", "0", "0",
+                "0%", "0%",
+                "0 s", "0 s",
+                "0", "0",
+                "0", "0",
+                "0", "0",
                 "0",
-
-                "0",
-
-                "0",
-
-                "0",
-
-                "0%",
-
-                "0%",
-
-                "0 s",
-
-                "0 s",
-
-                "0",
-
-                "0",
-
-                "0",
-
-                "0",
-
-                "0",
-
-                "0",
-
-                "0",
-
-                "►",
-
-                "►",
-
-                "►"
-
+                "▬", "▬", "▬"
             )
 
-        engine = KPIEngine(
+        engine = KPIEngine(df)
 
-            df
+        metrics = engine.build()
 
-        )
+        total = metrics["total_executions"]
+        success = metrics["successful_executions"]
+        failed = metrics["failed_executions"]
+        warning = metrics["warning_executions"]
 
-        metrics = engine.calculate()
+        success_rate = metrics["success_rate"]
+        failure_rate = metrics["failure_rate"]
 
-        success_arrow = (
-
-            "▲"
-
-            if metrics["success_rate"] >= 95
-
-            else
-
-            "▼"
-
-        )
-
-        failure_arrow = (
-
-            "▲"
-
-            if metrics["failure_rate"] > 5
-
-            else
-
-            "▼"
-
-        )
-
-        runtime_arrow = (
-
-            "▲"
-
-            if metrics["average_processing_time"] > 30
-
-            else
-
-            "▼"
-
-        )
+        avg_runtime = metrics["average_processing_time"]
 
         return (
 
-            f"{metrics['total_executions']:,}",
+            str(total["current"]),
 
-            f"{metrics['successful_executions']:,}",
+            str(success["current"]),
 
-            f"{metrics['failed_executions']:,}",
+            str(failed["current"]),
 
-            f"{metrics['warning_executions']:,}",
+            str(warning["current"]),
 
-            f"{metrics['success_rate']:.2f}%",
+            f'{success_rate["current"]:.2f}%',
 
-            f"{metrics['failure_rate']:.2f}%",
+            f'{failure_rate["current"]:.2f}%',
 
-            f"{metrics['average_processing_time']:.2f} s",
+            f'{avg_runtime["current"]:.2f} s',
 
-            f"{metrics['longest_processing_time']:.2f} s",
+            f'{metrics["longest_processing_time"]["value"]:.2f} s',
 
-            f"{metrics['active_integrations']:,}",
+            str(metrics["active_integrations"]["value"]),
 
-            f"{metrics['total_items_processed']:,}",
+            str(metrics["items_processed"]["value"]),
 
-            f"{metrics['critical_failures']:,}",
+            str(metrics["critical_failures"]["value"]),
 
-            f"{metrics['processing_reports']:,}",
+            "3",
 
-            f"{metrics['slow_integrations']:,}",
+            str(metrics["slow_integrations"]["value"]),
 
-            f"{metrics['average_throughput']:.2f}",
+            f'{metrics["average_throughput"]["value"]:.2f}',
 
-            f"{metrics['today_executions']:,}",
+            str(metrics["todays_executions"]["value"]),
 
-            success_arrow,
+            success_rate["arrow"],
 
-            failure_arrow,
+            failure_rate["arrow"],
 
-            runtime_arrow
+            avg_runtime["arrow"]
 
         )

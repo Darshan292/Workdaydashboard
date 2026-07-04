@@ -49,6 +49,13 @@ app = dash.Dash(
 
 server = app.server
 
+from flask import request
+print("server below")
+
+@server.before_request
+def log_requests():
+    print(f"{request.method} {request.path}")
+
 
 # ============================================================
 # Load Data

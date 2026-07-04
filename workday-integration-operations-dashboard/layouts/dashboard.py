@@ -91,7 +91,7 @@ class DashboardLayout:
 
                     type="circle",
 
-                    fullscreen=True,
+                    #fullscreen=True,
 
                     children=[
 
@@ -214,3 +214,31 @@ class DashboardLayout:
             ]
 
         )
+
+    # def build(self):
+
+    #     return html.Div(
+
+    #         [
+
+    #             html.H1("Dashboard Works"),
+
+    #             dcc.Store(
+    #                 id="master-data",
+    #                 data=self.df.to_dict("records")
+    #             ),
+
+    #             dcc.Store(
+    #                 id="filtered-data",
+    #                 data=self.df.to_dict("records")
+    #             ),
+
+    #             build_header(),
+    #             build_sidebar(),
+    #             build_kpi_cards(),
+    #             ChartGrid(self.df).build()
+                
+
+    #         ]
+
+    #     )

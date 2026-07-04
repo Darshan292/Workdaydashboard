@@ -8,9 +8,29 @@ import numpy as np
 
 class KPIEngine:
 
-    def __init__(self, df: pd.DataFrame):
+    def __init__(self, df):
 
         self.df = df.copy()
+
+        # Convert event_date back to datetime
+        if "event_date" in self.df.columns:
+            self.df["event_date"] = pd.to_datetime(
+                self.df["event_date"],
+                errors="coerce"
+            )
+
+        # Convert numeric columns
+        numeric_columns = [
+            "processing_time_seconds",
+            "items_processed"
+        ]
+
+        for column in numeric_columns:
+            if column in self.df.columns:
+                self.df[column] = pd.to_numeric(
+                    self.df[column],
+                    errors="coerce"
+                )
 
     # ======================================================
     # Helpers
@@ -18,8 +38,15 @@ class KPIEngine:
 
     def _current_previous(self):
 
-        latest = self.df["event_date"].dt.date.max()
+        if self.df.empty or "event_date" not in self.df.columns:
+            return pd.DataFrame(), pd.DataFrame()
 
+        valid_dates = self.df["event_date"].dropna()
+
+        if valid_dates.empty:
+            return pd.DataFrame(), pd.DataFrame()
+
+        latest = valid_dates.dt.date.max()
         previous = latest - pd.Timedelta(days=1)
 
         current = self.df[
